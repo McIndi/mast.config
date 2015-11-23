@@ -30,4 +30,3 @@ def get_configs_dict(base_dir=CONFIG_HOME):
         if filename.endswith(".conf"):
             _configs[filename] = get_config_dict(filename)
     return _configs
- 
