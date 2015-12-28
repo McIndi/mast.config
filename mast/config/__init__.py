@@ -1,4 +1,6 @@
 """
+_module_: `mast.config`
+
 This module is used to power MAST's unified, precedence based
 configuration system. The system basically works like this:
 
@@ -6,7 +8,7 @@ configuration system. The system basically works like this:
 and one of it's convenience methods is called.
 2. Configuration files located in `$MAST_HOME/etc/default` and
 `$MAST_HOME/etc/local` are merged. Merging follows
-this process:
+the following process:
     1. Files in `$MAST_HOME/etc/default` are parsed. This should
     allow programs to have a default value for all options.
     2. Files in `$MAST_HOME/etc/local` are parsed and the values from
@@ -18,15 +20,19 @@ this process:
 
 There are three convenience functions defined in this module:
 
-1. __get\_config(filename)__: This will parse the configuration for
+1. `get_config(filename)`: This will parse the configuration for
 `filename` and return a [ConfigParser.RawConfigParser](https://docs.python.org/2/library/configparser.html#ConfigParser.RawConfigParser)
 instance containing the results.
-2. __get\_config\_dict(filename)__: This will parse configuration for
+2. `get_config_dict(filename)`: This will parse configuration for
 `filename` and return a `dict` containing the configuration.
-3. __get\_configs\_dict(base_dir="$MAST_HOME/etc"): This will parse all files
+3. `get_configs_dict(base_dir=CONFIG_HOME)`: This will parse all files
 in `base_dir` ending with `.conf` and return all of this to you in a `dict`
 with keys coresponding to filenames and values of `dict`s obtained
 through `get_config_dict`.
+
+There is one constant provided by this module:
+
+* `CONFIG_HOME`: This will default to `$MAST_HOME/etc`.
 """
 
 import os
@@ -38,9 +44,15 @@ CONFIG_HOME = os.path.join(MAST_HOME, "etc")
 
 def get_config(filename):
     '''
+    _function_: `mast.config.get_config(filename)`
+
     This function parses `$MAST_HOME/etc/default/$filename` and
     `$MAST_HOME/etc/local/$filename` and returns a
-    `ConfigParser.RawConfigPaarser` instance containing the results.
+    `ConfigParser.RawConfigParser` instance containing the results.
+
+    Parameters:
+
+    * `filename`: The filename of the configuration to look for
 
     Usage:
 
@@ -58,9 +70,15 @@ def get_config(filename):
 
 def get_config_dict(filename):
     """
+    _function_: `mast.config.get_config_dict(filename)`
+
     This function parses `$MAST_HOME/etc/default/$filename` and
     `$MAST_HOME/etc/local/$filename` and returns a
     `dict` containing the results.
+
+    Parameters:
+
+    * `filename`: The filename of the configuration to look for
 
     Usage:
 
@@ -81,9 +99,18 @@ def get_config_dict(filename):
 
 def get_configs_dict(base_dir=CONFIG_HOME):
     """
-    This function parses `$MAST_HOME/etc/default/$filename` and
-    `$MAST_HOME/etc/local/$filename` and returns a
-    `dict` containing the results.
+    _function_: `mast.config.get_configs_dict(base_dir=CONFIG_HOME)`
+
+    This function searches through `base_dir/default` and
+    `base_dir/local` for files ending in `.conf` using values in `local`
+    to override values from `default` and returns a `dict` containing
+    the results.
+
+    Parameters:
+
+    * `base_dir`: The directory to search for configuration files (ini style
+    ending in `.conf`). `base_dir` should contain both a `default` directory
+    and a `local` directory.
 
     Usage:
 
