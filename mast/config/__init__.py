@@ -40,7 +40,7 @@ import ConfigParser
 
 MAST_HOME = os.environ["MAST_HOME"]
 CONFIG_HOME = os.path.join(MAST_HOME, "etc")
-
+__version__ = "{}-0".format(os.environ["MAST_VERSION"])
 
 def get_config(filename):
     '''
