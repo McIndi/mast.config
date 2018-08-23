@@ -21,7 +21,7 @@ the following process:
 There are three convenience functions defined in this module:
 
 1. `get_config(filename)`: This will parse the configuration for
-`filename` and return a [ConfigParser.RawConfigParser](https://docs.python.org/2/library/configparser.html#ConfigParser.RawConfigParser)
+`filename` and return a [ConfigParser.ConfigParser](https://docs.python.org/2/library/configparser.html#ConfigParser.ConfigParser)
 instance containing the results.
 2. `get_config_dict(filename)`: This will parse configuration for
 `filename` and return a `dict` containing the configuration.
@@ -62,7 +62,7 @@ def get_config(filename):
         config = get_config("config.conf")
         option = config.get("option")
     '''
-    config = ConfigParser.RawConfigParser()
+    config = ConfigParser.ConfigParser()
     config.read(os.path.join(MAST_HOME, 'etc', 'default', filename))
     config.read(os.path.join(MAST_HOME, 'etc', 'local', filename))
     return config
